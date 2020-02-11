@@ -1,6 +1,9 @@
 {
   "name": "@gradescope/remark-math",
   "description": "Math Inline and Block supporting for Remark",
+  "publishConfig": {
+    "registry": "http://bin-repo.iparadigms.com/artifactory/api/npm/am-npm/"
+  },
   "scripts": {
     "postinstall": "lerna bootstrap",
     "test": "jest --coverage",
