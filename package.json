@@ -13,7 +13,6 @@
     "lint": "standard",
     "demo:webpack": "webpack-dev-server --config examples/webpack/webpack.config.js",
     "demo:nodejs": "node examples/nodejs/process.js",
-    "release": "lerna publish",
     "tii-publish-remark-math": "./scripts/tii-publish-remark-math.sh"
   },
   "repository": {
