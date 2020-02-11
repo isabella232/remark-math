@@ -1,6 +1,6 @@
 {
   "name": "@gradescope/remark-math",
-  "version": "1.1.0-alpha.2",
+  "version": "1.1.0-alpha.3",
   "description": "Math Inline and Block parser plugin for Remark",
   "main": "dist/index.js",
   "repository": {
