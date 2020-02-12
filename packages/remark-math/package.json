@@ -1,6 +1,6 @@
 {
   "name": "@gradescope/remark-math",
-  "version": "1.1.0-alpha.3",
+  "version": "1.1.0-alpha.4",
   "description": "Math Inline and Block parser plugin for Remark",
   "publishConfig": {
     "registry": "http://bin-repo.iparadigms.com/artifactory/api/npm/am-npm/"
