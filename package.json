@@ -37,7 +37,6 @@
     "css-loader": "^0.28.4",
     "eslint-plugin-jest": "^20.0.3",
     "file-loader": "^0.11.2",
-    "fsevents": "^2.1.2",
     "github-markdown-css": "^2.6.0",
     "hastscript": "^3.0.1",
     "jest": "^20.0.4",
