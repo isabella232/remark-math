@@ -1,11 +1,11 @@
 {
-  "name": "@ibrahima/remark-math",
+  "name": "@gradescope/remark-math",
   "version": "1.1.0-alpha.2",
   "description": "Math Inline and Block parser plugin for Remark",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ibrahima/remark-math.git"
+    "url": "git+https://github.com/gradescope/remark-math.git"
   },
   "keywords": [
     "markdown",
@@ -18,9 +18,9 @@
   "author": "Junyoung Choi <fluke8259@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Rokt33r/remark-math/issues"
+    "url": "https://github.com/gradescope/remark-math/issues"
   },
-  "homepage": "https://github.com/Rokt33r/remark-math#readme",
+  "homepage": "https://github.com/gradescope/remark-math#readme",
   "peerDependencies": {
     "remark-parse": "^3.0.0 || ^4.0.0 || ^5.0.0"
   },
