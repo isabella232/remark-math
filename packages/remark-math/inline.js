@@ -15,7 +15,6 @@ const defaultModes = {
     left: /\$\$/,
     right: /\$\$/,
     matchInclude: [/\\\$/, /[^$]/],
-    tagName: 'span',
     getClassNames: function (opts) {
       return opts && opts.inlineMathDouble ? ['inlineMath', 'inlineMathDouble'] : ['inlineMath']
     }
@@ -25,7 +24,6 @@ const defaultModes = {
     left: /\$/,
     right: /\$/,
     matchInclude: [/\\\$/, /[^$]/],
-    tagName: 'span',
     getClassNames: function () { return ['inlineMath'] }
   }
 }
@@ -107,7 +105,7 @@ module.exports = function inlinePlugin (opts) {
       type: mode.nodeType,
       value: matchData.content,
       data: {
-        hName: mode.tagName,
+        hName: 'span',
         hProperties: {
           className: mode.getClassNames(opts).join(' ')
         },

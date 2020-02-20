@@ -351,7 +351,6 @@ it('accepts a custom configuration', () => {
       left: /\$\$\$/,
       right: /\$\$\$/,
       matchInclude: [/\\\$/, /[^$]/],
-      tagName: 'div',
       getClassNames: function () { return ['math', 'math-display'] }
     },
     mathInline: {
@@ -359,7 +358,6 @@ it('accepts a custom configuration', () => {
       left: /\$\$/,
       right: /\$\$/,
       matchInclude: [/\\\$/, /[^$]/],
-      tagName: 'span',
       getClassNames: function () { return ['inlineMath', 'math-inline'] }
     }
   }
@@ -397,7 +395,7 @@ it('accepts a custom configuration', () => {
           hChildren: [
             u('text', '\\gamma')
           ],
-          hName: 'div',
+          hName: 'span',
           hProperties: {
             className: 'math math-display'
           }
