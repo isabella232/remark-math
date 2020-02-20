@@ -6,7 +6,6 @@ const ESCAPED_INLINE_MATH = /^\\\$/ // starts with \$
 
 const NODE_TYPES = {
   TEXT: 'text',
-  MATH_DISPLAY: 'math',
   MATH_INLINE: 'inlineMath'
 }
 
@@ -128,8 +127,8 @@ module.exports = function inlinePlugin (opts) {
   // Inject inlineTokenizer
   const inlineTokenizers = Parser.prototype.inlineTokenizers
   const inlineMethods = Parser.prototype.inlineMethods
-  inlineTokenizers[NODE_TYPES.MATH_DISPLAY] = inlineTokenizer
-  inlineMethods.splice(inlineMethods.indexOf(NODE_TYPES.TEXT), 0, NODE_TYPES.MATH_DISPLAY)
+  inlineTokenizers.math = inlineTokenizer
+  inlineMethods.splice(inlineMethods.indexOf('text'), 0, 'math')
 
   const Compiler = this.Compiler
 
