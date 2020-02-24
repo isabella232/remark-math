@@ -15,6 +15,10 @@ function escapeRegExp (str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
+function getRegExpSource (strOrRegExp) {
+  return (typeof strOrRegExp === 'string') ? escapeRegExp(strOrRegExp) : strOrRegExp.source
+}
+
 const defaultModes = {
   inlineMath: {
     nodeType: NODE_TYPES.INLINE_MATH,
@@ -37,12 +41,10 @@ const defaultModes = {
 function buildMatchers (modes) {
   return Object.keys(modes).reduce(function (accum, modeName) {
     const mode = modes[modeName]
-    const left = escapeRegExp(mode.left)
-    const right = escapeRegExp(mode.right)
+    const left = getRegExpSource(mode.left)
+    const right = getRegExpSource(mode.right)
     const useMatchIncludes = mode.matchIncludes || includeNonDollarsAndEscaped
-    const matchIncludes = useMatchIncludes.map(function (s) {
-      return (typeof s === 'string') ? escapeRegExp(s) : s.source
-    })
+    const matchIncludes = useMatchIncludes.map(getRegExpSource)
     const capture = '((?:' + matchIncludes.join('|') + ')+)'
     accum[modeName] = new RegExp('^' + left + capture + right)
     return accum
