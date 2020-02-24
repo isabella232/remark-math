@@ -346,19 +346,19 @@ it('must set inlineMathDouble class if inlineMathDouble is true', () => {
 
 it('accepts a custom configuration', () => {
   const customModes = {
-    mathDisplay: {
-      nodeType: 'math',
-      left: /\$\$\$/,
-      right: /\$\$\$/,
-      matchInclude: [/\\\$/, /[^$]/],
-      getClassNames: function () { return ['math', 'math-display'] }
-    },
-    mathInline: {
+    inlineMath: {
       nodeType: 'inlineMath',
       left: /\$\$/,
       right: /\$\$/,
       matchInclude: [/\\\$/, /[^$]/],
       getClassNames: function () { return ['inlineMath', 'math-inline'] }
+    },
+    displayMath: {
+      nodeType: 'math',
+      left: /\$\$\$/,
+      right: /\$\$\$/,
+      matchInclude: [/\\\$/, /[^$]/],
+      getClassNames: function () { return ['math', 'math-display'] }
     }
   }
 

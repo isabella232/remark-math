@@ -6,25 +6,25 @@ const ESCAPED_INLINE_MATH = /^\\\$/ // starts with \$
 
 const NODE_TYPES = {
   TEXT: 'text',
-  MATH_INLINE: 'inlineMath'
+  INLINE_MATH: 'inlineMath'
 }
 
 const defaultModes = {
-  mathInlineDouble: {
-    nodeType: NODE_TYPES.MATH_INLINE,
+  inlineMath: {
+    nodeType: NODE_TYPES.INLINE_MATH,
+    left: /\$/,
+    right: /\$/,
+    matchInclude: [/\\\$/, /[^$]/],
+    getClassNames: function () { return ['inlineMath'] }
+  },
+  inlineMathDouble: {
+    nodeType: NODE_TYPES.INLINE_MATH,
     left: /\$\$/,
     right: /\$\$/,
     matchInclude: [/\\\$/, /[^$]/],
     getClassNames: function (opts) {
       return opts && opts.inlineMathDouble ? ['inlineMath', 'inlineMathDouble'] : ['inlineMath']
     }
-  },
-  mathInline: {
-    nodeType: NODE_TYPES.MATH_INLINE,
-    left: /\$/,
-    right: /\$/,
-    matchInclude: [/\\\$/, /[^$]/],
-    getClassNames: function () { return ['inlineMath'] }
   }
 }
 
@@ -68,6 +68,7 @@ module.exports = function inlinePlugin (opts) {
       if (silent) {
         return true
       }
+
       return eat(escaped[0])({
         type: NODE_TYPES.TEXT,
         value: '$'
@@ -118,6 +119,7 @@ module.exports = function inlinePlugin (opts) {
       }
     })
   }
+
   inlineTokenizer.locator = locator
 
   const Parser = this.Parser
@@ -133,7 +135,7 @@ module.exports = function inlinePlugin (opts) {
   // Stringify for math inline
   if (Compiler != null) {
     const visitors = Compiler.prototype.visitors
-    visitors[NODE_TYPES.MATH_INLINE] = function (node) {
+    visitors[NODE_TYPES.INLINE_MATH] = function (node) {
       return '$' + node.value + '$'
     }
   }
