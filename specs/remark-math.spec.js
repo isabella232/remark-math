@@ -350,14 +350,14 @@ it('accepts a custom configuration', () => {
       nodeType: 'inlineMath',
       left: '$$',
       right: '$$',
-      matchIncludes: [/\\\$/, /[^$]/],
+      matchIncludes: ['\\$', /[^$]/],
       getClassNames: function () { return ['inlineMath', 'math-inline'] }
     },
     displayMath: {
       nodeType: 'math',
       left: '$$$',
       right: '$$$',
-      matchIncludes: [/\\\$/, /[^$]/],
+      matchIncludes: ['\\$', /[^$]/],
       getClassNames: function () { return ['math', 'math-display'] }
     }
   }

@@ -9,7 +9,7 @@ const NODE_TYPES = {
   INLINE_MATH: 'inlineMath'
 }
 
-const includeNonDollarsAndEscaped = [/\\\$/, /[^$]/]
+const includeNonDollarsAndEscaped = ['\\$', /[^$]/]
 
 function escapeRegExp (str) {
   return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -40,7 +40,9 @@ function buildMatchers (modes) {
     const left = escapeRegExp(mode.left)
     const right = escapeRegExp(mode.right)
     const useMatchIncludes = mode.matchIncludes || includeNonDollarsAndEscaped
-    const matchIncludes = useMatchIncludes.map(function (s) { return s.source })
+    const matchIncludes = useMatchIncludes.map(function (s) {
+      return (typeof s === 'string') ? escapeRegExp(s) : s.source
+    })
     const capture = '((?:' + matchIncludes.join('|') + ')+)'
     accum[modeName] = new RegExp('^' + left + capture + right)
     return accum
