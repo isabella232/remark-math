@@ -11,8 +11,9 @@ const NODE_TYPES = {
 
 const includeNonDollarsAndEscaped = ['\\$', /[^$]/]
 
+// Taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#Escaping
 function escapeRegExp (str) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&');
 }
 
 function getRegExpSource (strOrRegExp) {
