@@ -348,15 +348,15 @@ it('accepts a custom configuration', () => {
   const customModes = {
     inlineMath: {
       nodeType: 'inlineMath',
-      left: /\$\$/,
-      right: /\$\$/,
+      left: '$$',
+      right: '$$',
       matchInclude: [/\\\$/, /[^$]/],
       getClassNames: function () { return ['inlineMath', 'math-inline'] }
     },
     displayMath: {
       nodeType: 'math',
-      left: /\$\$\$/,
-      right: /\$\$\$/,
+      left: '$$$',
+      right: '$$$',
       matchInclude: [/\\\$/, /[^$]/],
       getClassNames: function () { return ['math', 'math-display'] }
     }

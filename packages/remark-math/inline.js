@@ -11,18 +11,22 @@ const NODE_TYPES = {
 
 const includeNonDollarsAndEscaped = [/\\\$/, /[^$]/]
 
+function escapeRegExp (str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 const defaultModes = {
   inlineMath: {
     nodeType: NODE_TYPES.INLINE_MATH,
-    left: /\$/,
-    right: /\$/,
+    left: '$',
+    right: '$',
     matchInclude: includeNonDollarsAndEscaped,
     getClassNames: function () { return ['inlineMath'] }
   },
   inlineMathDouble: {
     nodeType: NODE_TYPES.INLINE_MATH,
-    left: /\$\$/,
-    right: /\$\$/,
+    left: '$$',
+    right: '$$',
     matchInclude: includeNonDollarsAndEscaped,
     getClassNames: function (opts) {
       return opts && opts.inlineMathDouble ? ['inlineMath', 'inlineMathDouble'] : ['inlineMath']
@@ -33,8 +37,8 @@ const defaultModes = {
 function buildMatchers (modes) {
   return Object.keys(modes).reduce(function (accum, modeName) {
     const mode = modes[modeName]
-    const left = mode.left.source
-    const right = mode.right.source
+    const left = escapeRegExp(mode.left)
+    const right = escapeRegExp(mode.right)
     const useMatchInclude = mode.matchInclude || includeNonDollarsAndEscaped
     const matchInclude = useMatchInclude.map(function (s) { return s.source })
     const capture = '((?:' + matchInclude.join('|') + ')+)'
