@@ -20,14 +20,14 @@ const defaultModes = {
     nodeType: NODE_TYPES.INLINE_MATH,
     left: '$',
     right: '$',
-    matchInclude: includeNonDollarsAndEscaped,
+    matchIncludes: includeNonDollarsAndEscaped,
     getClassNames: function () { return ['inlineMath'] }
   },
   inlineMathDouble: {
     nodeType: NODE_TYPES.INLINE_MATH,
     left: '$$',
     right: '$$',
-    matchInclude: includeNonDollarsAndEscaped,
+    matchIncludes: includeNonDollarsAndEscaped,
     getClassNames: function (opts) {
       return opts && opts.inlineMathDouble ? ['inlineMath', 'inlineMathDouble'] : ['inlineMath']
     }
@@ -39,9 +39,9 @@ function buildMatchers (modes) {
     const mode = modes[modeName]
     const left = escapeRegExp(mode.left)
     const right = escapeRegExp(mode.right)
-    const useMatchInclude = mode.matchInclude || includeNonDollarsAndEscaped
-    const matchInclude = useMatchInclude.map(function (s) { return s.source })
-    const capture = '((?:' + matchInclude.join('|') + ')+)'
+    const useMatchIncludes = mode.matchIncludes || includeNonDollarsAndEscaped
+    const matchIncludes = useMatchIncludes.map(function (s) { return s.source })
+    const capture = '((?:' + matchIncludes.join('|') + ')+)'
     accum[modeName] = new RegExp('^' + left + capture + right)
     return accum
   }, {})
