@@ -9,19 +9,21 @@ const NODE_TYPES = {
   INLINE_MATH: 'inlineMath'
 }
 
+const includeNonDollarsAndEscaped = [/\\\$/, /[^$]/]
+
 const defaultModes = {
   inlineMath: {
     nodeType: NODE_TYPES.INLINE_MATH,
     left: /\$/,
     right: /\$/,
-    matchInclude: [/\\\$/, /[^$]/],
+    matchInclude: includeNonDollarsAndEscaped,
     getClassNames: function () { return ['inlineMath'] }
   },
   inlineMathDouble: {
     nodeType: NODE_TYPES.INLINE_MATH,
     left: /\$\$/,
     right: /\$\$/,
-    matchInclude: [/\\\$/, /[^$]/],
+    matchInclude: includeNonDollarsAndEscaped,
     getClassNames: function (opts) {
       return opts && opts.inlineMathDouble ? ['inlineMath', 'inlineMathDouble'] : ['inlineMath']
     }
@@ -33,7 +35,8 @@ function buildMatchers (modes) {
     const mode = modes[modeName]
     const left = mode.left.source
     const right = mode.right.source
-    const matchInclude = mode.matchInclude.map(function (s) { return s.source })
+    const useMatchInclude = mode.matchInclude || includeNonDollarsAndEscaped
+    const matchInclude = useMatchInclude.map(function (s) { return s.source })
     const capture = '((?:' + matchInclude.join('|') + ')+)'
     accum[modeName] = new RegExp('^' + left + capture + right)
     return accum
