@@ -343,3 +343,65 @@ it('must set inlineMathDouble class if inlineMathDouble is true', () => {
     ])
   ]))
 })
+
+it('accepts a custom configuration', () => {
+  const customModes = {
+    inlineMath: {
+      nodeType: 'inlineMath',
+      left: '$$',
+      right: '$$',
+      matchIncludes: ['\\$', /[^$]/],
+      getClassNames: function () { return ['inlineMath', 'math-inline'] }
+    },
+    displayMath: {
+      nodeType: 'math',
+      left: '$$$',
+      right: '$$$',
+      matchIncludes: ['\\$', /[^$]/],
+      getClassNames: function () { return ['math', 'math-display'] }
+    }
+  }
+
+  const processor = remark()
+    .use(math, {
+      modes: customModes
+    })
+
+  const targetText = [
+    'treat this as text $\\alpha$!',
+    'treat this as inline $$\\beta$$!',
+    'treat this as display $$$\\gamma$$$!'
+  ].join('\n')
+
+  const ast = processor.parse(targetText)
+
+  expect(ast).toEqual(u('root', [
+    u('paragraph', [
+      u('text', 'treat this as text $\\alpha$!\ntreat this as inline '),
+      u('inlineMath', {
+        data: {
+          hChildren: [
+            u('text', '\\beta')
+          ],
+          hName: 'span',
+          hProperties: {
+            className: 'inlineMath math-inline'
+          }
+        }
+      }, '\\beta'),
+      u('text', '!\ntreat this as display '),
+      u('math', {
+        data: {
+          hChildren: [
+            u('text', '\\gamma')
+          ],
+          hName: 'span',
+          hProperties: {
+            className: 'math math-display'
+          }
+        }
+      }, '\\gamma'),
+      u('text', '!')
+    ])
+  ]))
+})
